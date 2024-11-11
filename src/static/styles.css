@@ -1,0 +1,117 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Great Vibes', cursive;
+    position: relative;
+    overflow: hidden;
+}
+
+.content-wrapper {
+    margin-top: 25vh;
+    text-align: center;
+}
+
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('images/bg.jpg') center center;
+    background-size: cover;
+    filter: grayscale(100%);
+    z-index: -2;
+}
+
+.glass-panel {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 100vh;
+    width: min(600px, 100%);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+@supports not (backdrop-filter: blur(15px)) {
+    .glass-panel {
+        background: rgba(255, 255, 255, 0.85);
+    }
+}
+
+h1 {
+    font-size: 6rem;
+    color: white;
+    letter-spacing: 0.1rem;
+    margin-bottom: 1.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    font-family: "Ms Madi", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+h2 {
+    font-size: 3rem;
+    color: white;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    font-family: "Cutive Mono", monospace;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.qr-code {
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    margin-top: 5vh;
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 3.5rem;
+    }
+
+    h2 {
+        font-size: 2.5rem;
+    }
+
+    .glass-panel {
+        padding: 2rem;
+    }
+
+    .qr-code {
+        width: 150px;
+        height: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2.8rem;
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+}
