@@ -1,28 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta property="og:image" content="https://oliwiaipawel.wedding/static/images/thumbnail.jpg" />
-    <title>Save the Date</title>
+    <meta property="og:title" content="Save The Date">
+    <meta property="og:image" content="static/images/bg.jpg">
+    
+    <title>Save The Date</title>
+    
+    <!-- Preload critical assets -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ms+Madi&display=swap" rel="stylesheet">    
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Cutive+Mono&family=Ms+Madi&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Cutive+Mono&family=Ms+Madi&display=swap" rel="stylesheet">
+    
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👰🏻‍♀️</text></svg>">
+
     <link rel="stylesheet" href="static/styles.css">
+    <script type="text/javascript" src="static/script.js"></script>
 </head>
-
 <body>
-    <div class="background"></div>
-    <div class="glass-panel">
-        <div class="content-wrapper">
-        <h1>Save The Date</h1>
-        <h2>21 VI 2025</h2>
-        </div>
-        <img class="qr-code" src="static/images/qr.png" alt="QR Code for Calendar Event">
-    </div>
+    <main class="save-date-container" role="main">
+        <div class="background" aria-hidden="true"></div>
+        
+        <section class="glass-panel">
+            <div class="content-wrapper">
+                <h1 class="fade-in">Save The Date</h1>
+                <time datetime="2025-06-21" class="date fade-in">21 VI 2025</time>
+                
+                <div class="qr-wrapper fade-in">
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <!-- Front - QR Code -->
+                            <div class="flip-card-front">
+                                <img 
+                                    class="flip-trigger"
+                                    src="static/images/qr.png" 
+                                    alt="Scan this QR code to add the event to your calendar" 
+                                    class="qr-code" 
+                                    width="150" 
+                                    height="150"
+                                    loading="lazy"
+                                >
+                            </div>
+                            <!-- Back - Calendar Buttons -->
+                            <div class="flip-card-back">
+                                <div class="calendar-buttons">
+                                    <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wesele%20-%20Oliwia%20i%20Pawe%C5%82&dates=20250621/20250622&location=Dw%C3%B3r%20w%20Tomaszowicach%2C%20Krakowska%2068%2C%2032-085%20Tomaszowice" 
+                                       class="calendar-button google" 
+                                       target="_blank"
+                                       rel="noopener">
+                                        <img src="static/images/google-calendar.png" width="16" height="16">
+                                        Google
+                                    </a>
+                                    <a href="#" 
+                                       class="calendar-button ical" 
+                                       download="wedding.ics">
+                                        <svg viewBox="0 0 24 24" class="calendar-icon">
+                                            <path d="M19,4H17V3a1,1,0,0,0-2,0V4H9V3A1,1,0,0,0,7,3V4H5A3,3,0,0,0,2,7V19a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3V7A3,3,0,0,0,19,4ZM5,6H7V7A1,1,0,0,0,9,7V6h6V7a1,1,0,0,0,2,0V6h2a1,1,0,0,1,1,1V9H4V7A1,1,0,0,1,5,6Z"/>
+                                        </svg>
+                                        iCal
+                                    </a>
+                                </div>
+                                <button class="flip-trigger" aria-label="Show QR code">
+                                    Back to QR
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 </body>
-
 </html>

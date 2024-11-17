@@ -1,117 +1,267 @@
-* {
+/* Font declarations */
+@font-face {
+    font-family: 'Ms Madi';
+    src: url('fonts/ms-madi.woff2') format('woff2');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Cutive Mono';
+    src: url('fonts/cutive-mono.woff2') format('woff2');
+    font-display: swap;
+}
+
+/* Reset */
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Base styles */
+:root {
+    --glass-bg-color: rgba(255, 255, 255, 0.05);  /* Reduced from 0.1 */
+    --glass-border-color: rgba(255, 255, 255, 0.1);  /* Reduced from 0.2 */
+    --text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    --box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);  /* Reduced shadow opacity */
+}
+
 body {
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Great Vibes', cursive;
-    position: relative;
+    min-height: 100dvh;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.5;
     overflow: hidden;
 }
 
-.content-wrapper {
-    margin-top: 25vh;
-    text-align: center;
+.save-date-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    display: grid;
+    place-items: center;
 }
 
+/* Background styles */
 .background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('images/bg.jpg') center center;
-    background-size: cover;
+    position: fixed;
+    inset: 0;
+    background: url('images/bg.jpg') center/cover no-repeat;
     filter: grayscale(100%);
     z-index: -2;
+    will-change: transform;
 }
 
+/* Glass panel styles */
 .glass-panel {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    height: 100vh;
-    width: min(600px, 100%);
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(15px);
+    position: relative;
+    height: 100%;
+    width: min(600px, 60%);
+    background: var(--glass-bg-color);
+    backdrop-filter: blur(3px);  /* Reduced from 15px for less intense blur */
+    -webkit-backdrop-filter: blur(3px);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 3rem;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    border-left: 1px solid rgba(255, 255, 255, 0.2);
-    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    padding: clamp(0.5rem, 1vw, 1rem);
+    box-shadow: var(--box-shadow);
+    border-inline: 1px solid var(--glass-border-color);
 }
 
-@supports not (backdrop-filter: blur(15px)) {
+@supports not (backdrop-filter: blur(8px)) {
     .glass-panel {
-        background: rgba(255, 255, 255, 0.85);
+        background: rgba(255, 255, 255, 0.3);  /* Reduced from 0.85 */
     }
+}
+
+/* Content styles */
+.content-wrapper {
+    text-align: center;
 }
 
 h1 {
-    font-size: 6rem;
+    font-size: clamp(2rem, 5vw, 5rem);
     color: white;
     letter-spacing: 0.1rem;
     margin-bottom: 1.5rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    text-align: center;
+    text-shadow: var(--text-shadow);
     font-family: "Ms Madi", cursive;
     font-weight: 400;
-    font-style: normal;
 }
 
-h2 {
-    font-size: 3rem;
+.date {
+    display: block;
+    font-size: clamp(2rem, 5vw, 3rem);
     color: white;
     margin-bottom: 2rem;
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
-    text-align: center;
-    font-family: "Cutive Mono", monospace;
+    text-shadow: var(--text-shadow);
+    font-family: "Amatic SC";
     font-weight: 400;
-    font-style: normal;
+}
+
+/* QR code styles */
+.qr-wrapper {
+    margin-top: 5vh;
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
 
 .qr-code {
+    border-radius: 10px;
+    box-shadow: var(--box-shadow);
+    transition: transform 0.3s ease;
+    width: 100%;
+    height: auto;
+    margin-bottom: 0.5rem;
+}
+
+.qr-code:hover {
+    transform: scale(1.05);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+h1.fade-in {
+    animation-delay: 0.2s;
+}
+
+time.fade-in {
+    animation-delay: 0.4s;
+}
+
+.qr-wrapper.fade-in {
+    animation-delay: 0.6s;
+}
+
+/* Print styles */
+@media print {
+    .background {
+        display: none;
+    }
+    
+    .glass-panel {
+        box-shadow: none;
+        border: 1px solid #ccc;
+    }
+    
+    h1, .date {
+        color: #000;
+        text-shadow: none;
+    }
+}
+
+/* Add these new styles for the flip card functionality */
+
+.flip-card {
     width: 150px;
     height: 150px;
+    perspective: 1000px;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.flip-card.is-flipped .flip-card-inner {
+    transform: rotateX(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.9);
     border-radius: 10px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-    margin-top: 5vh;
+    padding: 0.5rem;
 }
 
-@media (max-width: 768px) {
-    h1 {
-        font-size: 3.5rem;
-    }
-
-    h2 {
-        font-size: 2.5rem;
-    }
-
-    .glass-panel {
-        padding: 2rem;
-    }
-
-    .qr-code {
-        width: 150px;
-        height: 150px;
-    }
+.flip-card-back {
+    transform: rotateX(180deg);
 }
 
-@media (max-width: 480px) {
-    h1 {
-        font-size: 2.8rem;
-    }
+/* New styles for calendar buttons */
+.calendar-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
 
-    h2 {
-        font-size: 2rem;
-    }
+.calendar-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+    font-size: 0.8rem;
+    transition: transform 0.2s;
+}
+
+.calendar-button:hover {
+    transform: scale(1.05);
+}
+
+.calendar-button.google {
+    background-color: #4285f4;
+}
+
+.calendar-button.img {
+    background-color: #fff;
+}
+
+.calendar-button.ical {
+    background-color: #34A853;
+}
+
+.calendar-icon {
+    width: 1.2rem;
+    height: 1.2rem;
+    fill: currentColor;
+}
+
+.flip-trigger {
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 0.7rem;
+    cursor: pointer;
+    padding: 0.3rem;
+    text-decoration: underline;
+}
+
+.flip-trigger:hover {
+    color: #333;
 }
